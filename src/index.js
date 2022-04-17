@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <button>${itemInfo.isGoodDog ? "Good Dog!" : "Bad Dog!"}</button>
         `
         infoContainer.innerHTML = info
+        infoContainer.querySelector("button").addEventListener("click", () => {
+            toggleDog()
+        })
         summaryContainer.append(infoContainer)
+    }
+    function toggleDog() {
+        console.log("click")
     }
 })
