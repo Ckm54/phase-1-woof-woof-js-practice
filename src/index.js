@@ -14,7 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
         span.innerText = data.name
         header.append(span)
         span.addEventListener("click", () => {
-            console.log("click")
+            showPupInfo()
         })
+    }
+
+    function showPupInfo() {
+        console.log("click")
     }
 })
