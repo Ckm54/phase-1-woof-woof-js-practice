@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const header = document.getElementById("dog-bar")
     const infoContainer = document.getElementById("dog-info")
     const summaryContainer = document.getElementById("dog-summary-container")
+    const filterBtn = document.getElementById("good-dog-filter")
 
     fetch("http://localhost:3000/pups")
     .then(response => response.json())
@@ -51,4 +52,30 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => console.log(data))
     }
+    
+    filterBtn.addEventListener("click", () => {
+        const btnText = filterBtn.innerText
+        const txt = btnText.split(": ")[0]
+        const filter = btnText.split(": ")[1]
+        header.innerHTML = ''
+        if (filter === "OFF"){
+            filterBtn.innerText = `${txt}: ON`
+            fetch("http://localhost:3000/pups")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(element => {
+                    if(element.isGoodDog) loadHeader(element)
+                });
+            })
+        }else {
+            filterBtn.innerText = `${txt}: OFF`
+            fetch("http://localhost:3000/pups")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(element => {
+                    loadHeader(element)
+                });
+            })
+        }
+    })
 })
