@@ -13,5 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let span = document.createElement("span")
         span.innerText = data.name
         header.append(span)
+        span.addEventListener("click", () => {
+            console.log("click")
+        })
     }
 })
