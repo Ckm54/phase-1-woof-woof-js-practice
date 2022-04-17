@@ -13,12 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let span = document.createElement("span")
         span.innerText = data.name
         header.append(span)
-        span.addEventListener("click", () => {
-            showPupInfo()
+        span.addEventListener("click", (e) => {
+            let name = e.target.innerText
+            showPupInfo(name)
         })
     }
 
-    function showPupInfo() {
-        console.log("click")
+    function showPupInfo(item) {
+        console.log(item)
     }
 })
