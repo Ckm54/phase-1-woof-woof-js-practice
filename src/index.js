@@ -27,12 +27,28 @@ document.addEventListener("DOMContentLoaded", () => {
         <button>${itemInfo.isGoodDog ? "Good Dog!" : "Bad Dog!"}</button>
         `
         infoContainer.innerHTML = info
-        infoContainer.querySelector("button").addEventListener("click", () => {
-            toggleDog()
+        let button = infoContainer.querySelector("button")
+        button.addEventListener("click", () => {
+            itemInfo.isGoodDog ? itemInfo.isGoodDog = false : itemInfo.isGoodDog = true
+            updateBtnText(itemInfo.isGoodDog, button)
+            toggleDog(itemInfo)
         })
         summaryContainer.append(infoContainer)
     }
-    function toggleDog() {
-        console.log("click")
+
+    function updateBtnText(dogStatus, btn) {
+        dogStatus ? btn.innerText = "Good Dog!" : btn.innerText = "Bad Dog!"
+    }
+
+    function toggleDog(item) {
+        fetch(`http://localhost:3000/pups/${item.id}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(item)
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
     }
 })
