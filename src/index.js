@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const header = document.getElementById("dog-bar")
+    const infoContainer = document.getElementById("dog-info")
+    const summaryContainer = document.getElementById("dog-summary-container")
 
     fetch("http://localhost:3000/pups")
     .then(response => response.json())
@@ -13,13 +15,18 @@ document.addEventListener("DOMContentLoaded", () => {
         let span = document.createElement("span")
         span.innerText = data.name
         header.append(span)
-        span.addEventListener("click", (e) => {
-            let name = e.target.innerText
-            showPupInfo(name)
+        span.addEventListener("click", () => {
+            showPupInfo(data)
         })
     }
 
-    function showPupInfo(item) {
-        console.log(item)
+    function showPupInfo(itemInfo) {
+        let info = `
+        <img src="${itemInfo.image}" />
+        <h2>${itemInfo.name}</h2>
+        <button>${itemInfo.isGoodDog ? "Good Dog!" : "Bad Dog!"}</button>
+        `
+        infoContainer.innerHTML = info
+        summaryContainer.append(infoContainer)
     }
 })
